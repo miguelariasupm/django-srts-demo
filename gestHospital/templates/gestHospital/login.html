@@ -1,0 +1,35 @@
+{% extends gestHospital_base_html %}
+{% block contenido %}
+<h1 style="margin-bottom: 30px;text-align: center;">Login</h1>
+{% if errorMsg %}
+<div class="alert alert-danger" role="alert">
+    {{errorMsg}} Por favor, vuelva a intentarlo
+</div>
+{% endif %}
+<form class="form-signin" action="{{request.get_full_path}}" method="POST">
+    {% csrf_token %}
+    {{ formulario.non_field_errors }}
+    <div class="container" style="text-align: center;">
+        <div class="row" style="margin-top: 0;margin-bottom: 0;">
+            <div class="mb-3">
+                {{ formulario.username.errors }}
+                <label class="form-label" for="{{ formulario.username.id_for_label }}"></label>
+                {{ formulario.username }}
+            </div>
+        </div>
+        <div class="row" style="margin-top: 0;margin-bottom: 0;">
+            <div class="mb-3">
+                {{ formulario.password.errors }}
+                <label class="form-label" for="{{ formulario.password.id_for_label }}"></label>
+                {{ formulario.password }}
+            </div>
+        </div>
+        <div class="row" style="margin-top: 0;margin-bottom: 0;">
+            <div class="col">
+                <button type="submit" class="btn btn-primary">Autenticar</button>
+                <a class="btn btn-secondary" href="{% url 'gestHospital-bienvenida'%}">Cancelar</a>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

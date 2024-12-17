@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  {% load static %}
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Título -->
+  {% block titulo %}
+  <title>Smart rehabilitation T-shirt system</title>
+  {% endblock %}
+
+  <!-- Icono pestaña navegador -->
+  <link rel="icon" type="image/x-icon" href="{% static gestHospital_favicon %}">
+
+  <!-- Estilos -->
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static gestHospital_css %}">
+
+
+  <!-- Librerías de JavaScript que se usan -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <!-- Menú -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{% url 'gestHospital-bienvenida' %}">Intelligent Rehabilitation System Management</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu"
+      aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar-menu">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'gestHospital-historia' %}">Project contribution</a>
+        </li>
+        <!--<li class="nav-item">
+          <a class="nav-link" href="{% url 'gestHospital-noticias' %}">Noticias</a>
+        </li>-->
+        {% if user.is_authenticated %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">Patients</a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li>
+              <a class="dropdown-item" href="{% url 'gestHospital-r-f-paciente' %}">Register Patient</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'gestHospital-m-paciente' %}">Show Patients</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">Doctor (Admin)</a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li>
+              <a class="dropdown-item" href="{% url 'gestHospital-r-f-medico' %}">Register Doctor (Admin)</a>
+            </li>
+          </ul>
+        </li>
+        <!--<li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">Ingresos</a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li>
+              <a class="dropdown-item" href="{% url 'gestHospital-r-f-ingreso' %}">Registrar Ingreso</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'gestHospital-m-ingreso' %}">Mostrar Ingreso</a>
+            </li>
+          </ul>
+        </li>-->
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'gestHospital-login' %}">Login</a>
+        </li>
+        {% endif %}
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'gestHospital-logout' %}">Logout&nbsp;({{user.username}})</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+    {% if user.is_authenticated %}
+    <form class="d-flex" role="search" action="{% url 'gestHospital-s-f-paciente' %}" method="POST">
+      {% csrf_token %}
+      <input class="form-control me-2" type="search" placeholder="Search patient" aria-label="Buscar" max_length=50 required
+        id="id_texto" name="texto">
+      <button class="btn btn-outline-light" type="submit">Search</button>
+    </form>
+    {% endif %}
+  </nav>
+
+  <div class="jumbotron">
+    <!-- Contenido -->
+    <div id='content'>
+
+      {% block contenido %}
+        <div class="welcome-container">
+          <h1>Welcome to the Smart Rehabilitation T-Shirt System (SRTS)</h1>
+          <p class="lead">
+            We're excited to have you on board. This platform is designed to streamline and 
+            enhance the rehabilitation process for your patients, providing you with advanced 
+            tools for monitoring, analysis, and personalized exercise planning.
+          </p>
+          <p class="lead">
+            Here, you will be able to:
+          </p>
+          <ul class="features-list">
+            <li>Register new patients and assign personalized exercise plans.</li>
+            <li>Monitor their progress through detailed graphs and key metrics.</li>
+            <li>Adjust exercises and configurations based on obtained results.</li>
+            <li>Generate precise reports for analyzing each patient's recovery.</li>
+          </ul>
+          <p class="conclusion">
+            Thank you for trusting SRTS to make rehabilitation more efficient, comfortable, and effective.
+          </p>
+          <p class="conclusion">
+            Let’s make a difference together!
+          </p>
+        </div>
+      {% endblock %}
+
+    </div>
+
+    <!-- Pie de página -->
+    <div id='foot'>
+      <hr class="my-4">
+      <p class="foot">
+        <img src="{% static gestHospital_imagen_hospital %}" class="img-tumbnail" width="50" height="50"
+          alt="Icono de un hospital">
+        Smart rehabilitation system (STRS 2024)
+      </p>
+      <!--<p class="foot" style="font-size: x-small;"> Desarrollado usando <a
+          href="https://www.djangoproject.com/">Django</a>, <a href="https://getbootstrap.com/">Bootstrap</a> e iconos
+        de <a href="https://www.flaticon.com/" title="icons">Flaticon</a></p>-->
+    </div>
+  </div>
+  <!-- Código Javascript -->
+  {% block javascript %}
+  <script>
+      function variarContenido(){    
+          var parr = document.getElementById("extra");
+              if (parr.style.display == "none") {
+                  parr.style.display = "inline";
+              } else {
+              parr.style.display = "none";
+              }
+      }
+  </script>
+  {% endblock %}
+
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+{% extends gestHospital_base_html %}
+
+{% load static %}
+
+{% block contenido %}
+<h1> Patients list.</h1>
+{% if lista %}
+{% include gestHospital_tabla_paciente %}
+{% else %}
+<div class="alert alert-warning" role="alert">
+    No registered patients.
+</div>
+{% endif%}
+{% include gestHospital_volver %}
+{% endblock %}

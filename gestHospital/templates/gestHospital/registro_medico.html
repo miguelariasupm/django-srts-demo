@@ -1,0 +1,50 @@
+{% extends gestHospital_base_html %}
+
+{% block titulo %}
+<title>Doctor Registration</title>
+{% endblock %}
+
+{% block contenido %}
+
+{% if errorMsg %}
+<div class="alert alert-danger" role="alert">
+    {{errorMsg}}. Please try again.
+</div>
+{% endif %}
+
+<h1>Doctor Registration</h1></br>
+
+<form action="{% url 'gestHospital-r-f-medico' %}" method="POST">
+    {% csrf_token %}
+    {{ formulario.non_field_errors }}
+    <div class="container" style="margin-left: 20px;">
+        <div class="row">
+            <div class="col">
+                <div class="mb-3">
+                    <label class="form-label" for="{{formulario.NumColegiado.id_for_label }}">Collegiate Number:</label>
+                    {{formulario.NumColegiado}}
+                    <div class="form-text">{{formulario.NumColegiado.errors}}</div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-3">
+                    <label class="form-label" for="{{formulario.Especialidad.id_for_label }}">Specialty:</label>
+                    {{formulario.Especialidad}}
+                    <div class="form-text">{{formulario.Especialidad.errors}}</div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-3">
+                    <label class="form-label" for="{{formulario.Password.id_for_label }}">Password:</label>
+                    {{formulario.Password}}
+                    <div class="form-text">{{formulario.Password.errors}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit">Register Doctor</button>
+</form>
+
+{% include gestHospital_volver %}
+
+{% endblock %}

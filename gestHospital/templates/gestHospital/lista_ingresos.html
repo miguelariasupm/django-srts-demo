@@ -1,0 +1,18 @@
+{% extends gestHospital_base_html %}
+
+{% load static %}
+
+{% block contenido %}
+<h1> Lista de ingresos.</h1>
+{% if lista %}
+{% include gestHospital_tabla_ingresos %}
+{% else %}
+<div class="alert alert-warning" role="alert">
+    No hay ingresos registrados.
+</div>
+{% endif%}
+{% if edad_media %}
+{% include gestHospital_tabla_edad %}
+{% endif %}
+{% include gestHospital_volver %}
+{% endblock %}

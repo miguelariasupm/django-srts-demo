@@ -1,0 +1,78 @@
+{% extends gestHospital_base_html %}
+
+{% block titulo %}
+<title>Patient Registration</title>
+{% endblock %}
+
+{% block contenido %}
+
+{% if errorMsg %}
+<div class="alert alert-danger" role="alert">
+    {{errorMsg}}. Please try again.
+</div>
+{% endif %}
+
+<h1>Patient Registration</h1></br>
+
+<form action="{% url 'gestHospital-r-f-paciente'%}" method="POST">
+    {% csrf_token %}
+    {{ formulario.non_field_errors }}
+    <div class="container" style="margin-left: 20px;">
+        <div class="row">
+            <div class="col">
+                <div class="mb-3">
+                    <label class="form-label" for="{{formulario.Nombre.id_for_label }}">First Name:</label>
+                    {{formulario.Nombre}}
+                    <div class="form-text">{{formulario.Nombre.errors}}</div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-3">
+                    <label class="form-label" for="{{formulario.Apellidos.id_for_label }}">Last Name:</label>
+                    {{formulario.Apellidos}}
+                    <div class="form-text">{{formulario.Apellidos.errors}}</div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-3">
+                    <label class="form-label" for="{{formulario.Sexo.id_for_label }}">Gender:</label>
+                    {{formulario.Sexo}}
+                    <div class="form-text">{{formulario.Sexo.errors}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="mb-3">
+                    <label class="form-label" for="{{formulario.Documentacion.id_for_label }}">ID Type:</label>
+                    {{formulario.Documentacion}}
+                    <div class="form-text">{{formulario.Documentacion.errors}}</div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-3">
+                    <label class="form-label" for="{{formulario.NumId.id_for_label }}">Patient Identifier:</label>
+                    {{formulario.NumId}}
+                    <div class="form-text">{{formulario.NumId.errors}}</div>
+                    <div class="form-text">
+                        National Health Service number or any other mutual identification number recognized by the state.
+                        <br> If unavailable, use the NIF or NIE.
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-3">
+                    <label class="form-label" for="{{formulario.Lesion.id_for_label }}">Type of Injury:</label>
+                    {{ formulario.Lesion }}
+                    <div class="form-text">{{formulario.Lesion.errors}}</div>
+                    <div class="form-text">Hold down Ctrl (Windows) or Command (Mac) to select multiple options.</div>
+                </div>
+            </div>            
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary d-flex justify-content-center mx-auto mt-3 mb-4">Register Patient</button>
+</form>
+
+{% include gestHospital_volver %}
+
+{% endblock %}

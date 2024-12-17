@@ -1,0 +1,79 @@
+{% load static %}
+<div class="d-flex justify-content-center">
+    <table class="table table-striped w-50">
+        <thead>
+            <tr>
+                <th scope="col">Patient Identifier</th>
+                <th scope="col">S.S/NIF/NIE</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Injury Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for Paciente in lista %}
+            <tr>
+                <th scope="row">{{Paciente.NumId}}</th>
+                <td>
+                    {{Paciente.Documentacion}}
+                </td>
+                <td>
+                    {{Paciente.Nombre}}
+                </td>
+                <td>
+                    {{Paciente.Apellidos}}
+                </td>
+                <td>
+                    {{Paciente.Sexo}}
+                </td>
+                <td>
+                    {% if Paciente.Lesiones.all %}
+                        <ul>
+                        {% for lesion in Paciente.Lesiones.all %}
+                            <li>{{ lesion.nombre }}</li> 
+                        {% endfor %}
+                        </ul>
+                    {% else %}
+                        No injuries registered
+                    {% endif %}
+                </td>
+                <td>
+
+                    <!-- Delete Modal -->
+                    <div class="modal fade" id="M{{Paciente.NumId}}" tabindex="-1"
+                        aria-labelledby="{{Paciente.NumId}}Label" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="{{Paciente.NumId}}">Delete Patient</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    You are about to delete the patient with ID {{Paciente.NumId}}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <a href="{% url 'gestHospital-e-paciente' Paciente.NumId%}"
+                                        class="btn btn-primary">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- View More Modal -->    
+                    <a href="#{{Paciente.NumId}}" data-bs-toggle="modal" data-bs-target="#M{{Paciente.NumId}}">
+                        <img src="{% static gestHospital_icono_borrar%}" width="12"
+                            title="Delete {{Paciente.NumId}}">
+                    </a>
+                    <a href="https://app.powerbi.com/groups/me/reports/fdbd1004-040c-4115-9fa4-a697525b18d1?ctid=6afea85d-c323-4270-b69d-a4fb3927c254&pbi_source=linkShare" target="_blank">
+                        <img src="{% static 'gestHospital/estadistica.png' %}" width="12" 
+                            title="View Statistics for {{Paciente.Nombre}}">
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

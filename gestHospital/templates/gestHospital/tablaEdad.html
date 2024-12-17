@@ -1,0 +1,24 @@
+{% load static %}
+<div class="d-flex justify-content-center">
+    <table class="table table-striped w-50">
+        <thead>
+            <tr>
+                <th scope="col">Sexo</th>
+                <th scope="col">Edad Media</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for Sexo in edad_media %}
+            <tr>
+                <td>
+                    {{Sexo.Paciente__Sexo}}
+                </td>
+                <td>
+                    {{Sexo.Edad__avg}}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

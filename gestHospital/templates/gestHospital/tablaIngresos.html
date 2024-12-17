@@ -1,0 +1,70 @@
+{% load static %}
+<div class="d-flex justify-content-center">
+    <table class="table table-striped w-50">
+        <thead>
+            <tr>
+                <th scope="col">Id automático del ingreso</th>
+                <th scope="col">Nombre</th>
+                <th scope="col" style="width:150px">Apellidos<a href="{% url 'gestHospital-ordenar' %}?btn=apellidos"><img src="{% static gestHospital_icono_ordenar_apellido%}" width="25" title="Ordenar por Apellidos"></a></th>
+                <th scope="col">Fecha de ingreso<a href="{% url 'gestHospital-ordenar' %}?btn=fecha"><img src="{% static gestHospital_icono_ordenar_fecha%}" width="25" title="Ordenar por Fecha Ingreso"></a></th>
+                <th scope="col">Fecha de alta</th>
+                <th scope="col">Decripción</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for Ingreso in lista %}
+            <tr>
+                <th scope="row">{{Ingreso.id}}</th>
+                <td>
+                    {{Ingreso.Paciente.Nombre}}
+                </td>
+                <td>
+                    {{Ingreso.Paciente.Apellidos}}
+                </td>
+                <td>
+                    {{Ingreso.Fecha_ingreso}}
+                </td>
+                <td>
+                    {{Ingreso.Fecha_alta}}
+                </td>
+                <td>
+                    {{Ingreso.Descripcion}}
+                </td>
+                <td>
+
+                    <!-- Modal borrar -->
+                    <div class="modal fade" id="M{{Ingreso.id}}" tabindex="-1"
+                        aria-labelledby="{{Ingreso.id}}Label" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="{{Ingreso.id}}">Eliminar ingreso</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Se va a eliminar el ingreso con identificador {{Ingreso.id}}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancelar</button>
+                                    <a href="{% url 'gestHospital-e-ingreso' Ingreso.id %}"
+                                        class="btn btn-primary">Eliminar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Modal editar-->    
+                    <a href="#{{Ingreso.id}}" data-bs-toggle="modal" data-bs-target="#M{{Ingreso.id}}"><img
+                            src="{% static gestHospital_icono_borrar%}" width="12"
+                            title="Eliminar {{Ingreso.id }}"></a>
+                    <a href="{% url 'gestHospital-m-f-ingreso' Ingreso.id %}" ><img
+                            src=" {% static gestHospital_icono_editar%}" width="12"
+                            title="Editar {{Ingreso.id }}"></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

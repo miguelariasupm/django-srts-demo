@@ -1,0 +1,13 @@
+{% extends gestHospital_base_html %}
+{% block contenido %}
+<h1 style="margin-bottom: 30px;text-align: center;">Error al ejecutar operación.</h1>
+<div class="alert alert-danger" role="alert">
+    Su cuenta de usuario (<strong>{{user.username}}</strong>) no tiene autorización para ejecutar la operación que seleccionó. Pruebe
+    a autenticarse usando una cuenta de usuario con suficientes privilegios.
+</div>
+<div class="row" style="margin-top: 0;margin-bottom: 0;text-align: center;">
+    <div class="col">
+        <a class="btn btn-secondary" href="{% url 'gestHospital-bienvenida'%}">Continuar</a>
+    </div>
+</div>
+{% endblock %}

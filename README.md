@@ -8,6 +8,7 @@
  *
  * This code is part of the SRTS project, developed for educational purposes.
  * Licensed under the MIT License. See the LICENSE file for more details.
+   
  */
 ## Running the server
 To run the server just run the command 'python manage.py runserver' from the command tab in the root of the folder. 
